@@ -1,0 +1,102 @@
+<nz-table
+  #filterTable
+  [nzData]="listOfDisplayBooks"
+  nzTableLayout="fixed"
+>
+  <thead>
+  <tr>
+    <th
+      *ngFor="let column of listOfColumns; trackBy: trackByName"
+      [nzFilters]="column.listOfFilter"
+      [nzFilterFn]="column.filterFn"
+      [nzFilterMultiple]="column.filterMultiple"
+    >
+      {{ column.name }}
+    </th>
+    <th nzCustomFilter>
+      <nz-filter-trigger
+        [(nzVisible)]="visible"
+        [nzActive]="searchValue.length > 0"
+        [nzDropdownMenu]="menu"
+      >
+        <span nz-icon nzType="search"></span>
+      </nz-filter-trigger>
+      Name
+    </th>
+    <th nzCustomFilter>
+      <nz-filter-trigger
+        [(nzVisible)]="pagesCountVisible"
+        [nzDropdownMenu]="pagesCount">
+        <span nz-icon nzType="search"></span>
+      </nz-filter-trigger>
+      Pages
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of filterTable.data">
+    <td>{{ data.author }}</td>
+    <td>{{ data.language }}</td>
+    <td>{{ data.genre }}</td>
+    <td>{{ data.name }}</td>
+    <td>{{ data.page }}</td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input
+        type="text"
+        nz-input
+        placeholder="Search name"
+        [(ngModel)]="searchValue"
+      />
+      <button
+        class="search-button"
+        nz-button
+        nzSize="small"
+        nzType="primary"
+        (click)="search()"
+      >Search
+      </button>
+      <button
+        nz-button
+        nzSize="small"
+        (click)="reset()"
+      >Reset
+      </button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #pagesCount="nzDropdownMenu">
+   <div class="ant-table-filter-dropdown">
+     <div class="search-box">
+       <nz-slider
+         nzRange
+         [(ngModel)]="pagesCounter"
+         nzMax="1000"
+         nzMin="20"
+         nzStep="10"
+         (ngModelChange)="onChange($event)"
+         (nzOnAfterChange)="onAfterChange($event)"
+       ></nz-slider>
+       <button
+         class="search-button"
+         nz-button
+         nzSize="small"
+         nzType="primary"
+         (click)="searchByPage()"
+       >Search
+       </button>
+       <button
+         nz-button
+         nzSize="small"
+         (click)="resetPages()"
+       >Reset
+       </button>
+     </div>
+   </div>
+</nz-dropdown-menu>
