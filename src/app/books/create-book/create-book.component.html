@@ -1,0 +1,123 @@
+<form nz-form [formGroup]="bookForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label
+      [nzSpan]="5"
+      nzRequired
+      nzFor="name"
+    >Name
+    </nz-form-label>
+    <nz-form-control
+      [nzSpan]="12"
+      nzErrorTip="Please input your book's name!"
+    >
+      <input PlaceHolder="Book's name" id="name" type="text" nz-input formControlName="name"/>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      [nzSpan]="5"
+      nzFor="author"
+      nzRequired
+    >Author
+    </nz-form-label>
+    <nz-form-control
+      [nzSpan]="12"
+      nzErrorTip="Please select an author!"
+    >
+      <nz-select
+        id="author"
+        formControlName="author"
+        nzPlaceHolder="Author">
+        <nz-option
+          *ngFor="let author of authors"
+          [nzValue]="author.id"
+          [nzLabel]="author.name"
+        >
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      [nzSpan]="5"
+      nzFor="description"
+    >Description
+    </nz-form-label>
+    <nz-form-control
+      [nzSpan]="12"
+    >
+      <textarea
+        formControlName="description"
+        nz-input
+        placeholder="Write description here"
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      [nzSpan]="5"
+      nzRequired
+      nzFor="Pages"
+    >Pages
+    </nz-form-label>
+    <nz-form-control
+      [nzSpan]="12"
+      nzErrorTip="Please input your book's pages!"
+    >
+      <nz-input-number
+        formControlName="pages"
+        id="pages"
+        [nzMin]="1"
+        [nzMax]="10000"
+        [nzStep]="10"
+        nzPlaceHolder="Book's page"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      [nzSpan]="5"
+      nzFor="language"
+      nzRequired
+    >Language
+    </nz-form-label>
+    <nz-form-control
+      [nzSpan]="12"
+      nzErrorTip="Please choose a language!"
+    >
+      <nz-select
+        id="language"
+        formControlName="language"
+        nzPlaceHolder="Language">
+        <nz-option *ngFor="let lang of languages" [nzValue]="lang.value" [nzLabel]="lang.text"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      [nzSpan]="5"
+      nzRequired
+      nzFor="genre"
+    >Genre
+    </nz-form-label>
+    <nz-form-control
+      [nzSpan]="12"
+      nzErrorTip="Please input your book's genre!"
+    >
+      <input PlaceHolder="Genre" id="genre" type="text" nz-input formControlName="genre"/>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzSpan]="12" [nzOffset]="5">
+      <button nz-button nzType="primary">Submit</button>
+      <button type="button" nz-button routerLink="../">Go back</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

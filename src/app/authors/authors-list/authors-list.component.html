@@ -1,0 +1,36 @@
+<nz-table #basicTable [nzData]="listOfAuthors">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let author of basicTable.data">
+    <td>{{ author.name }}</td>
+    <td>
+      <a (click)="modal.show(author)">Edit</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a (click)="onDeleteAuthor(author.id)">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-space>
+  <button
+    routerLink="create"
+    *nzSpaceItem
+    nz-button
+    nzType="primary"
+    nzSize="large"
+  >Add new author
+  </button>
+</nz-space>
+
+<app-modal
+  #modal
+  [isVisible]="editMode"
+  (submitted)="onEditAuthor($event)"
+>
+</app-modal>
+

@@ -1,0 +1,13 @@
+<div nz-col nzSpan="8">
+  <nz-form-label>
+    Author's name
+  </nz-form-label>
+  <input nz-input type="text" [formControl]="authorName">
+</div>
+
+<div nz-row nzJustify="start">
+ <nz-space>
+   <button *nzSpaceItem nz-button  nzType="primary" (click)="onAddAuthor()">Add</button>
+   <button *nzSpaceItem type="button" nz-button routerLink="../">Go back</button>
+ </nz-space>
+</div>

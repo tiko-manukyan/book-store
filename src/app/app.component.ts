@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from "@angular/router";
 import { AppModule } from "./app.module";
+import { Storage,  } from '@ionic/storage-angular';
+import { Database } from "../init-db";
 
 @Component({
   selector: 'app-root',
@@ -11,5 +13,14 @@ import { AppModule } from "./app.module";
     RouterOutlet,
   ],
   styleUrl: './app.component.scss',
+  providers: [Database]
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+
+  constructor(private database: Database) {
+  }
+
+  ngOnInit() {
+    this.database.init();
+  }
+}

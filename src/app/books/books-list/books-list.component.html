@@ -34,7 +34,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of filterTable.data">
+  <tr *ngFor="let data of filterTable.data" (click)="onNavigate(data)">
     <td>{{ data.author }}</td>
     <td>{{ data.language }}</td>
     <td>{{ data.genre }}</td>
@@ -43,6 +43,16 @@
   </tr>
   </tbody>
 </nz-table>
+
+<nz-space nz-space="large">
+  <button
+    *nzSpaceItem
+    nz-button
+    nzType="primary"
+    nzSize="large"
+    (click)="onCreateBook()"
+  >Create new book
+  </button>
 
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <div class="ant-table-filter-dropdown">

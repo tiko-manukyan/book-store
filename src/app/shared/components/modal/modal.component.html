@@ -1,0 +1,8 @@
+<nz-modal [(nzVisible)]="isVisible"
+          nzTitle="Change author name"
+          (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent [formGroup]="author">
+    <input nz-input  type="text" placeholder="Author's name" formControlName="name" >
+  </ng-container>
+</nz-modal>

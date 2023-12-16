@@ -1,22 +1,9 @@
 import { Component } from '@angular/core';
-import { NzTableFilterFn, NzTableFilterList } from "ng-zorro-antd/table";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Author, Book, TableColumn } from "../../shared/model/models";
 
-interface DataItem {
-  author: string;
-  name: string;
-  page: number;
-  language: string;
-  genre: string;
-  description? : string;
-  id?: number;
-}
 
-interface ColumnItem {
-  name: string;
-  listOfFilter: NzTableFilterList;
-  filterFn: NzTableFilterFn<DataItem> | null;
-  filterMultiple: boolean;
-}
+
 
 @Component({
   selector: 'app-books-list',
@@ -26,50 +13,54 @@ interface ColumnItem {
 
 export class BooksListComponent {
 
-  listOfBooks: DataItem[] = [
+  listOfBooks: Book[] = [
     {
       author: 'John Brown',
       name: 'Random Name 1',
       page: 50,
       language: 'English',
-      genre: "urax"
+      genre: "urax",
+      id: 1
     },
     {
       author: 'Jim Green',
       name: 'Random Name 2',
       page: 100,
       language: 'Russian',
-      genre: 'txur'
+      genre: 'txur',
+      id: 2
     },
     {
       author: 'Joe Black',
       name: 'Random Name 3',
       page: 10,
       language: 'China',
-      genre: 'urax'
+      genre: 'urax',
+      id: 0
     },
     {
       author: 'Jim Red',
       name: 'Random Name 4',
       page: 800,
       language: 'English',
-      genre: 'txur'
+      genre: 'txur',
+      id: 3
     }
   ];
 
-  listOfDisplayBooks = [...this.listOfBooks];
+  listOfDisplayBooks: Book[] = [...this.listOfBooks];
 
-  listOfAuthor = [
-    { text: 'John Brown', value: 'John Brown' },
-    { text: 'Gogol', value: 'Gogol' },
-    { text: 'Cech', value: 'Cech' }
+  listOfAuthor: Author[] = [
+    { name: 'John Brown', id: 0 },
+    { name: 'Gogol', id: 1 },
+    { name: 'Cech', id: 2 }
   ];
 
-  listOfColumns: ColumnItem[] | any = [
+  listOfColumns: TableColumn[] | any = [
     {
       name: 'Author',
       listOfFilter: this.listOfAuthor,
-      filterFn: (list: string[], item: DataItem) => list.some(author => item.author.indexOf(author) !== -1),
+      filterFn: (list: string[], item: Book) => list.some(author => item.author.indexOf(author) !== -1),
       filterMultiple: true
     },
     {
@@ -79,7 +70,7 @@ export class BooksListComponent {
         { text: 'Russian', value: 'Russian' },
         { text: 'China', value: 'China' }
       ],
-      filterFn: (list: string[], item: DataItem) => list.some(lang => item.language.indexOf(lang) !== -1),
+      filterFn: (list: string[], item: Book) => list.some(lang => item.language.indexOf(lang) !== -1),
       filterMultiple: true,
     },
     {
@@ -91,14 +82,17 @@ export class BooksListComponent {
         { text: 'urax', value: 'urax' },
         { text: 'txur', value: 'txur' }
       ],
-      filterFn: (address: string, item: DataItem) => item.genre.indexOf(address) !== -1
+      filterFn: (address: string, item: Book) => item.genre.indexOf(address) !== -1
     },
   ];
 
-  pagesCounter: number[] = [20, 100];
+  pagesCounter = [20, 100];
   searchValue = '';
   visible = false;
   pagesCountVisible = false;
+
+  constructor(private router: Router, private route: ActivatedRoute) {
+  }
 
 
 
@@ -112,10 +106,10 @@ export class BooksListComponent {
   search(): void {
     this.visible = false;
     this.listOfDisplayBooks = this.listOfBooks.filter(
-      (item: DataItem) => item.name.indexOf(this.searchValue) !== -1);
+      (item: Book) => item.name.indexOf(this.searchValue) !== -1);
   }
 
-  trackByName(_: number, item: ColumnItem): string {
+  trackByName(_: number, item: TableColumn): string {
     return item.name;
   }
 
@@ -136,6 +130,14 @@ export class BooksListComponent {
   resetPages() {
     this.pagesCountVisible = false;
     this.listOfDisplayBooks = this.listOfBooks;
+  }
+
+  onNavigate(data: any) {
+    console.log(data)
+  }
+
+  onCreateBook() {
+    this.router.navigate(['create'], {relativeTo: this.route})
   }
 
 }
