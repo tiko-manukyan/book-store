@@ -27,7 +27,7 @@ export class CreateBookComponent implements OnInit {
   languages = [
     { text: 'English', value: 'English' },
     { text: 'Russian', value: 'Russian' },
-    { text: 'China', value: 'China' }
+    { text: 'Chinese', value: 'Chinese' }
   ];
 
   constructor(private fb: FormBuilder,
@@ -41,15 +41,15 @@ export class CreateBookComponent implements OnInit {
         this.authors.push(...authors.map((author) => { return {value: author.id, text: author.name} })))
   }
 
-submitForm(): void {
+  submitForm(): void {
     if (!this.bookForm.valid) {
-       Object.values(this.bookForm.controls).forEach(control => {
+      Object.values(this.bookForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
         }
       });
-       return
+      return
     }
     this.bookForm.patchValue({id: v4()})
     this.bookService.addNewBook(this.bookForm.value);

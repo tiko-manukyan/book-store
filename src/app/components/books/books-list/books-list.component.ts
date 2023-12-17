@@ -97,7 +97,7 @@ export class BooksListComponent implements OnInit {
     return item.name;
   }
 
-  searchByPage() {
+  searchByPages() {
     this.pagesCountVisible = false;
     this.listOfDisplayBooks = this.listOfBooks
       .filter((item) => item.pages >= this.pagesCounter[0] && item.pages <= this.pagesCounter[1]);
@@ -108,8 +108,8 @@ export class BooksListComponent implements OnInit {
     this.listOfDisplayBooks = this.listOfBooks;
   }
 
-  onNavigate(data: any) {
-    this.router.navigate([data.id], {relativeTo: this.route})
+  onNavigate(book: Book) {
+    this.router.navigate([book.id], {relativeTo: this.route})
   }
 
   onCreateBook() {

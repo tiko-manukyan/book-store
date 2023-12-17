@@ -1,8 +1,7 @@
 <nz-table
   #booksTable
   [nzData]="listOfDisplayBooks"
-  nzTableLayout="fixed"
->
+  nzTableLayout="fixed">
   <thead>
   <tr>
     <th
@@ -54,58 +53,57 @@
   >Create new book
   </button>
 
-<nz-dropdown-menu #menu="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input
-        type="text"
-        nz-input
-        placeholder="Search name"
-        [(ngModel)]="searchValue"
-      />
-      <button
-        class="search-button"
-        nz-button
-        nzSize="small"
-        nzType="primary"
-        (click)="search()"
-      >Search
-      </button>
-      <button
-        nz-button
-        nzSize="small"
-        (click)="reset()"
-      >Reset
-      </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Search name"
+          [(ngModel)]="searchValue"
+        />
+        <button
+          class="search-button"
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="search()"
+        >Search
+        </button>
+        <button
+          nz-button
+          nzSize="small"
+          (click)="reset()"
+        >Reset
+        </button>
+      </div>
     </div>
-  </div>
-</nz-dropdown-menu>
-
-<nz-dropdown-menu #pagesCount="nzDropdownMenu">
-   <div class="ant-table-filter-dropdown">
-     <div class="search-box">
-       <nz-slider
-         nzRange
-         [(ngModel)]="pagesCounter"
-         nzMax="1000"
-         nzMin="20"
-         nzStep="10"
-       ></nz-slider>
-       <button
-         class="search-button"
-         nz-button
-         nzSize="small"
-         nzType="primary"
-         (click)="searchByPage()"
-       >Search
-       </button>
-       <button
-         nz-button
-         nzSize="small"
-         (click)="resetPages()"
-       >Reset
-       </button>
-     </div>
-   </div>
-</nz-dropdown-menu>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #pagesCount="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <nz-slider
+          nzRange
+          [(ngModel)]="pagesCounter"
+          nzMax="1000"
+          nzMin="20"
+          nzStep="10"
+        ></nz-slider>
+        <button
+          class="search-button"
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="searchByPages()"
+        >Search
+        </button>
+        <button
+          nz-button
+          nzSize="small"
+          (click)="resetPages()"
+        >Reset
+        </button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
 </nz-space>

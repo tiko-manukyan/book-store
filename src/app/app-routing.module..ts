@@ -4,6 +4,7 @@ import { BookItemComponent } from "./components/books/book-item/book-item.compon
 import { CreateBookComponent } from "./components/books/create-book/create-book.component";
 import { AuthorsListComponent } from "./components/authors/authors-list/authors-list.component";
 import { AddAuthorComponent } from "./components/authors/add-author/add-author.component";
+import { NotFoundComponent } from "./components/not-found/not-found.component";
 
 export const routes: Routes = [
   { path: '',
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: 'books/:id', component: BookItemComponent },
   { path: 'authors', component: AuthorsListComponent },
   { path: 'authors/create', component: AddAuthorComponent },
+  { path: '**', component: NotFoundComponent }
 ];

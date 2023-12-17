@@ -1,4 +1,7 @@
-<form nz-form [formGroup]="bookForm" (ngSubmit)="submitForm()">
+<form
+  nz-form
+  [formGroup]="bookForm"
+  (ngSubmit)="submitForm()">
   <nz-form-item>
     <nz-form-label
       [nzSpan]="5"
@@ -10,7 +13,13 @@
       [nzSpan]="12"
       nzErrorTip="Please input your book's name!"
     >
-      <input PlaceHolder="Book's name" id="name" type="text" nz-input formControlName="name"/>
+      <input
+        nz-input
+        PlaceHolder="Book's name"
+        id="name"
+        type="text"
+        formControlName="name"
+      />
     </nz-form-control>
   </nz-form-item>
 
@@ -49,8 +58,8 @@
       [nzSpan]="12"
     >
       <textarea
-        formControlName="description"
         nz-input
+        formControlName="description"
         placeholder="Write description here"
         [nzAutosize]="{ minRows: 2, maxRows: 6 }"
       ></textarea>
@@ -94,7 +103,12 @@
         id="language"
         formControlName="language"
         nzPlaceHolder="Language">
-        <nz-option *ngFor="let lang of languages" [nzValue]="lang.value" [nzLabel]="lang.text"></nz-option>
+        <nz-option
+          *ngFor="let lang of languages"
+          [nzValue]="lang.value"
+          [nzLabel]="lang.text"
+        >
+        </nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
@@ -110,14 +124,29 @@
       [nzSpan]="12"
       nzErrorTip="Please input your book's genre!"
     >
-      <input PlaceHolder="Genre" id="genre" type="text" nz-input formControlName="genre"/>
+      <input
+        nz-input
+        PlaceHolder="Genre"
+        id="genre"
+        type="text"
+        formControlName="genre"
+      />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-control [nzSpan]="12" [nzOffset]="5">
-      <button nz-button nzType="primary">Submit</button>
-      <button type="button" nz-button routerLink="../">Go back</button>
+      <button
+        nz-button
+        nzType="primary"
+      >Create
+      </button>
+      <button
+        nz-button
+        type="button"
+        routerLink="../"
+      >Go back
+      </button>
     </nz-form-control>
   </nz-form-item>
 </form>

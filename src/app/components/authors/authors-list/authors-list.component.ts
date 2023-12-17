@@ -33,8 +33,8 @@ export class AuthorsListComponent implements OnInit {
       .then(() => this.getAuthorList());
   }
 
-  onEditAuthor(author: any) {
-    this.listOfAuthors.find((item: Author) => item?.id === author?.id)!.name = author.name
+  onEditAuthor(author: Author) {
+    this.listOfAuthors.find((item: Author) => item.id === author.id)!.name = author.name
     this.authorService.editAuthor(this.listOfAuthors, author.name)
       .then(() => this.getAuthorList());
   }

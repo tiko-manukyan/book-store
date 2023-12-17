@@ -18,7 +18,6 @@ export class BookItemComponent implements OnInit {
     { name: 'Name' },
     { name: 'Description' },
   ];
-
   book!: Book;
 
   constructor(private route: ActivatedRoute,

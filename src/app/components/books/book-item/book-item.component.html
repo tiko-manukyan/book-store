@@ -2,12 +2,10 @@
   #bookTable
   [nzData]="bookTable.data"
   nzTableLayout="fixed"
-  nzTemplateMode
->
+  nzTemplateMode>
   <thead>
   <tr>
-    <th
-      *ngFor="let column of listOfColumns;">
+    <th *ngFor="let column of listOfColumns;">
       {{ column.name }}
     </th>
   </tr>

@@ -24,12 +24,14 @@ import { NzFormModule } from "ng-zorro-antd/form";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { AddAuthorComponent } from "./components/authors/add-author/add-author.component";
-import {ModalComponent} from "./shared/components/modal/modal.component";
-import {NzModalModule} from "ng-zorro-antd/modal";
-import {NzIconModule} from "ng-zorro-antd/icon";
-import {AuthorsService} from "./services/authors.service";
-import {Database} from "../init-db";
-import {BooksService} from "./services/books.service";
+import { ModalComponent } from "./shared/components/modal/modal.component";
+import { NzModalModule } from "ng-zorro-antd/modal";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { AuthorsService } from "./services/authors.service";
+import { Database } from "../init-db";
+import { BooksService } from "./services/books.service";
+import { NotFoundComponent } from "./components/not-found/not-found.component";
+import { NzResultModule } from "ng-zorro-antd/result";
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import {BooksService} from "./services/books.service";
     AuthorsListComponent,
     BookItemComponent,
     AddAuthorComponent,
-    ModalComponent
+    ModalComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +70,7 @@ import {BooksService} from "./services/books.service";
     NzInputNumberModule,
     NzModalModule,
     NzIconModule,
+    NzResultModule,
   ],
   exports: [
     SidebarComponent
