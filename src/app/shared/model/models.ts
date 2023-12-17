@@ -1,4 +1,4 @@
-import {NzTableFilterFn, NzTableFilterList} from "ng-zorro-antd/table";
+import { NzTableFilterFn, NzTableFilterList } from "ng-zorro-antd/table";
 
 export interface Book {
   author: string,
@@ -6,7 +6,7 @@ export interface Book {
   page: number,
   language: string,
   genre: string,
-  id: number,
+  id: string,
   description? : string
 }
 
@@ -19,5 +19,5 @@ export interface TableColumn {
 
 export interface Author {
   name: string,
-  id: number
+  id: string
 }

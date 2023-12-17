@@ -31,8 +31,8 @@
         nzPlaceHolder="Author">
         <nz-option
           *ngFor="let author of authors"
-          [nzValue]="author.id"
-          [nzLabel]="author.name"
+          [nzValue]="author.text"
+          [nzLabel]="author.text"
         >
         </nz-option>
       </nz-select>

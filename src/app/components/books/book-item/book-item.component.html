@@ -1,0 +1,24 @@
+<nz-table
+  [nzData]="book"
+  nzTableLayout="fixed"
+>
+  <thead>
+  <tr>
+    <th
+      *ngFor="let column of listOfColumns;"
+    >
+      {{ column.name }}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr >
+    <td>{{ book?.author }}</td>
+    <td>{{ book?.language }}</td>
+    <td>{{ book?.genre }}</td>
+    <td>{{ book?.name }}</td>
+    <td>{{ book?.page }}</td>
+    <td>{{ book?.description }}</td>
+  </tr>
+  </tbody>
+</nz-table>

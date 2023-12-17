@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { BooksListComponent } from "./books/books-list/books-list.component";
-import { BookItemComponent } from "./books/book-item/book-item.component";
-import { CreateBookComponent } from "./books/create-book/create-book.component";
-import {AuthorsListComponent} from "./authors/authors-list/authors-list.component";
-import {AddAuthorComponent} from "./authors/add-author/add-author.component";
+import { BooksListComponent } from "./components/books/books-list/books-list.component";
+import { BookItemComponent } from "./components/books/book-item/book-item.component";
+import { CreateBookComponent } from "./components/books/create-book/create-book.component";
+import { AuthorsListComponent } from "./components/authors/authors-list/authors-list.component";
+import { AddAuthorComponent } from "./components/authors/add-author/add-author.component";
 
 export const routes: Routes = [
   { path: '',
