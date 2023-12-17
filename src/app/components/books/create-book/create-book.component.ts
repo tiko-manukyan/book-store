@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Database } from "../../../../init-db";
 import { AuthorsService } from "../../../services/authors.service";
-import {log} from "ng-zorro-antd/core/logger";
-import {BooksService} from "../../../services/books.service";
+import { BooksService } from "../../../services/books.service";
+import { v4 } from 'uuid'
+
 
 @Component({
   selector: 'app-create-book',
@@ -18,7 +18,8 @@ export class CreateBookComponent implements OnInit {
     description: this.fb.control(''),
     pages: this.fb.control(null, Validators.required),
     language: this.fb.control('', Validators.required),
-    genre: this.fb.control('', Validators.required)
+    genre: this.fb.control('', Validators.required),
+    id: this.fb.control('')
   });
 
   authors: { value: string, text: string }[] = [];
@@ -42,15 +43,16 @@ export class CreateBookComponent implements OnInit {
 
 submitForm(): void {
     if (!this.bookForm.valid) {
-      Object.values(this.bookForm.controls).forEach(control => {
-        console.log(control)
+       Object.values(this.bookForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
         }
       });
+       return
     }
-    this.bookService.addNewBook(this.bookForm.value)
+    this.bookForm.patchValue({id: v4()})
+    this.bookService.addNewBook(this.bookForm.value);
   }
 
 }

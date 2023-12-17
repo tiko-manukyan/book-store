@@ -18,6 +18,19 @@ export class BooksService {
     return await this.dataBase.getTable('books')
   }
 
+  getBook(id: string): Promise<Book> {
+    return new Promise(async (resolve, reject) => {
+      const books = await this.dataBase.getTable('books');
+      const book = books.find((book: Book) => book.id === id);
+      if (book) {
+        resolve(book);
+      } else {
+        this.notification.warning('Warning', 'Book not found');
+        reject();
+      }
+    })
+  }
+
   addNewBook(book: Book) {
     this.dataBase.add('books', book)
       .finally(() => {

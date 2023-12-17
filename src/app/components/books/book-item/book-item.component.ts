@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Book} from "../../../shared/model/models";
-import {ActivatedRoute, Route, Router} from "@angular/router";
-import {BooksService} from "../../../services/books.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { BooksService } from "../../../services/books.service";
+import { Book } from "../../../shared/model/models";
 
 @Component({
   selector: 'app-book-item',
@@ -13,13 +13,13 @@ export class BookItemComponent implements OnInit {
   listOfColumns = [
     { name: 'Author' },
     { name: 'Language' },
-    { name: 'Page' },
+    { name: 'Pages' },
     { name: 'Genre' },
     { name: 'Name' },
     { name: 'Description' },
   ];
 
-  book! : any;
+  book!: Book;
 
   constructor(private route: ActivatedRoute,
               private bookService: BooksService
@@ -27,16 +27,9 @@ export class BookItemComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(({ id }) => {
-      this.bookService.getBooksList().then((books) => {
-        console.log('id', id)
-        console.log('books', books)
-        // // @ts-ignore
-        // this.book = books.find(it => it.id == id)
-        // console.log(this.book)
-
-      })
-    })
+      this.bookService.getBook(id)
+        .then((book) => this.book = book);
+    });
   }
-
 
 }

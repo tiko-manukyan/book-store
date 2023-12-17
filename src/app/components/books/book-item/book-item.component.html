@@ -1,24 +1,25 @@
 <nz-table
-  [nzData]="book"
+  #bookTable
+  [nzData]="bookTable.data"
   nzTableLayout="fixed"
+  nzTemplateMode
 >
   <thead>
   <tr>
     <th
-      *ngFor="let column of listOfColumns;"
-    >
+      *ngFor="let column of listOfColumns;">
       {{ column.name }}
     </th>
   </tr>
   </thead>
   <tbody>
-  <tr >
-    <td>{{ book?.author }}</td>
-    <td>{{ book?.language }}</td>
-    <td>{{ book?.genre }}</td>
-    <td>{{ book?.name }}</td>
-    <td>{{ book?.page }}</td>
-    <td>{{ book?.description }}</td>
+  <tr *ngIf="book">
+    <td>{{ book.author }}</td>
+    <td>{{ book.language }}</td>
+    <td>{{ book.pages }}</td>
+    <td>{{ book.genre }}</td>
+    <td>{{ book.name }}</td>
+    <td>{{ book.description }}</td>
   </tr>
   </tbody>
 </nz-table>

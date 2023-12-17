@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import * as uuid from 'uuid';
+import { v4 } from 'uuid'
 import { Author } from "../../../shared/model/models";
 import { AuthorsService } from "../../../services/authors.service";
 import { NotificationService } from "../../../services/notification.service";
@@ -14,14 +14,18 @@ import { NotificationService } from "../../../services/notification.service";
 export class AddAuthorComponent {
   public authorName = new FormControl<string>('');
 
+  constructor(
+    private authorService: AuthorsService,
+    private notification: NotificationService
+  ) {}
+
   onAddAuthor() {
     if (!this.authorName.value) {
       this.notification.warning('Warning', 'Please type author name')
     } else {
-      const id = uuid.v4();
       const newAuthor: Author = {
         name: this.authorName.value,
-        id: id
+        id: v4()
       }
       this.authorService.addNewAuthor(newAuthor)
       this.authorName.reset();
@@ -30,10 +34,7 @@ export class AddAuthorComponent {
 
 
 
-  constructor(
-    private authorService: AuthorsService,
-    private notification: NotificationService
-  ) {}
+
 
 
 }

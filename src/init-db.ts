@@ -1,7 +1,5 @@
 import { Storage } from "@ionic/storage-angular";
 import { Injectable } from "@angular/core";
-import { Book } from "./app/shared/model/models";
-
 @Injectable({providedIn: 'root'})
 
 export class Database {
@@ -12,7 +10,7 @@ export class Database {
     await this.storage.create();
   }
 
-  async getTable(key: string) {
+  async getTable(key: 'books' | 'authors') {
     return await this.storage.get(key) || [];
   }
 

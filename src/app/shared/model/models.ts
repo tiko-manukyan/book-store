@@ -3,7 +3,7 @@ import { NzTableFilterFn, NzTableFilterList } from "ng-zorro-antd/table";
 export interface Book {
   author: string,
   name: string,
-  page: number,
+  pages: number,
   language: string,
   genre: string,
   id: string,

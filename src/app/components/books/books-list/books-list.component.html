@@ -1,5 +1,5 @@
 <nz-table
-  #filterTable
+  #booksTable
   [nzData]="listOfDisplayBooks"
   nzTableLayout="fixed"
 >
@@ -34,12 +34,12 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of filterTable.data" (click)="onNavigate(data)">
-    <td>{{ data.author }}</td>
-    <td>{{ data.language }}</td>
-    <td>{{ data.genre }}</td>
-    <td>{{ data.name }}</td>
-    <td>{{ data.page }}</td>
+  <tr *ngFor="let book of booksTable.data" (click)="onNavigate(book)">
+    <td>{{ book.author }}</td>
+    <td>{{ book.language }}</td>
+    <td>{{ book.genre }}</td>
+    <td>{{ book.name }}</td>
+    <td>{{ book.pages }}</td>
   </tr>
   </tbody>
 </nz-table>
