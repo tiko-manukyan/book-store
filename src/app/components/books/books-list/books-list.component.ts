@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Book, TableColumn } from "../../../shared/model/models";
+import { Author, Book, TableColumn } from "../../../shared/model/models";
 import { AuthorsService } from "../../../services/authors.service";
 import { BooksService } from "../../../services/books.service";
 
@@ -22,6 +22,7 @@ export class BooksListComponent implements OnInit {
   searchValue = '';
   visible = false;
   pagesCountVisible = false;
+  languages: { value: string, text: string }[] = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -30,27 +31,29 @@ export class BooksListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getAuthors();
-    this.getBooksList()
+    this.getTableData();
   }
 
-  getBooksList() {
-    this.booksService.getBooksList()
-      .then((books) => {
-        this.listOfDisplayBooks = books;
-        this.listOfBooks = books;
-      })
+  async getTableData(): Promise<void> {
+    await this.getAuthors();
+    await this.getBooksList();
+    this.setColumns();
   }
 
-  getAuthors() {
-    this.authorService.getAuthorList()
-      .then((authors) => {
-        this.listOfAuthors = authors.map((author) => ({value: author.name, text: author.name}));
-        this.setFilters();
-      });
+  async getBooksList(): Promise<void> {
+    const books: Book[] = await this.booksService.getBooksList();
+    this.listOfDisplayBooks = books;
+    this.listOfBooks = books;
+    const uniqueLanguages: Set<string> = new Set(books.map((book) => book.language));
+    this.languages = Array.from(uniqueLanguages).map((lang) => ({text: lang, value: lang}));
   }
 
-  setFilters() {
+  async getAuthors() {
+    const authors: Author[] = await this.authorService.getAuthorList();
+    this.listOfAuthors = authors.map((author) => ({value: author.name, text: author.name}));
+  }
+
+  setColumns() {
     this.listOfColumns = [
       {
         name: 'Author',
@@ -60,11 +63,7 @@ export class BooksListComponent implements OnInit {
       },
       {
         name: 'Language',
-        listOfFilter: [
-          { text: 'English', value: 'English' },
-          { text: 'Russian', value: 'Russian' },
-          { text: 'China', value: 'China' }
-        ],
+        listOfFilter: this.languages,
         filterFn: (list: string[], item: Book) => list.some(lang => item.language.indexOf(lang) !== -1),
         filterMultiple: true,
       },
