@@ -21,3 +21,8 @@ export interface Author {
   name: string,
   id: string
 }
+
+export interface Filter {
+  text: string,
+  value: string
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Author, Book, TableColumn } from "../../../shared/model/models";
+import { Author, Book, Filter, TableColumn } from "../../../shared/model/models";
 import { AuthorsService } from "../../../services/authors.service";
 import { BooksService } from "../../../services/books.service";
 
@@ -12,17 +12,16 @@ import { BooksService } from "../../../services/books.service";
 })
 
 export class BooksListComponent implements OnInit {
-
-
   listOfBooks: Book[] = [];
   listOfDisplayBooks: Book[] = [];
-  listOfAuthors: { value: string, text: string }[] = [];
-  listOfColumns: TableColumn[] | any = [];
+  listOfColumns: TableColumn[] = [];
   pagesCounter = [20, 100];
   searchValue = '';
   visible = false;
   pagesCountVisible = false;
-  languages: { value: string, text: string }[] = [];
+  authors: Filter[] = [];
+  languages: Filter[] = [];
+  genres: Filter[] = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -44,20 +43,19 @@ export class BooksListComponent implements OnInit {
     const books: Book[] = await this.booksService.getBooksList();
     this.listOfDisplayBooks = books;
     this.listOfBooks = books;
-    const uniqueLanguages: Set<string> = new Set(books.map((book) => book.language));
-    this.languages = Array.from(uniqueLanguages).map((lang) => ({text: lang, value: lang}));
+    this.setColumnFilters(books);
   }
 
   async getAuthors() {
     const authors: Author[] = await this.authorService.getAuthorList();
-    this.listOfAuthors = authors.map((author) => ({value: author.name, text: author.name}));
+    this.authors = authors.map((author) => ({value: author.name, text: author.name}));
   }
 
   setColumns() {
     this.listOfColumns = [
       {
         name: 'Author',
-        listOfFilter: this.listOfAuthors,
+        listOfFilter: this.authors,
         filterFn: (list: string[], item: Book) => list.some(name => item.author.indexOf(name) !== -1),
         filterMultiple: true
       },
@@ -69,16 +67,18 @@ export class BooksListComponent implements OnInit {
       },
       {
         name: 'Genre',
-        sortOrder: null,
-        sortDirections: ['ascend', 'descend', null],
         filterMultiple: false,
-        listOfFilter: [
-          { text: 'urax', value: 'urax' },
-          { text: 'txur', value: 'txur' }
-        ],
-        filterFn: (address: string, item: Book) => item.genre.indexOf(address) !== -1
+        listOfFilter: this.genres,
+        filterFn: (genre: string, item: Book) => item.genre.toLowerCase().indexOf(genre) !== -1
       },
     ];
+  }
+
+  setColumnFilters(books: Book[]) {
+    const uniqueLanguages: Set<string> = new Set(books.map((book) => book.language));
+    this.languages = Array.from(uniqueLanguages).map((lang) => ({text: lang, value: lang}));
+    const uniqueGenre: Set<string> = new Set(books.map((book) => book.genre.toLowerCase()));
+    this.genres = Array.from(uniqueGenre).map((genre) => ({text: genre, value: genre}));
   }
 
 
@@ -90,19 +90,11 @@ export class BooksListComponent implements OnInit {
   search(): void {
     this.visible = false;
     this.listOfDisplayBooks = this.listOfBooks.filter(
-      (item: Book) => item.name.indexOf(this.searchValue) !== -1);
+      (item: Book) => item.name.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1 || item.description!.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1);
   }
 
   trackByName(_: number, item: TableColumn): string {
     return item.name;
-  }
-
-  onChange(value: number): void {
-    console.log(`onChange: ${value}`);
-  }
-
-  onAfterChange(value: number[] | number): void {
-    console.log(`onAfterChange: ${value}`);
   }
 
   searchByPage() {
