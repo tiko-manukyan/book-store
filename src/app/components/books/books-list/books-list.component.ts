@@ -12,12 +12,12 @@ import { BooksService } from "../../../services/books.service";
 })
 
 export class BooksListComponent implements OnInit {
-  listOfBooks: Book[] = [];
-  listOfDisplayBooks: Book[] = [];
-  listOfColumns: TableColumn[] = [];
-  pagesCounter = [20, 100];
-  searchValue = '';
-  visible = false;
+  private listOfBooks: Book[] = [];
+  public listOfDisplayBooks: Book[] = [];
+  public listOfColumns: TableColumn[] = [];
+  public pagesCounter = [20, 100];
+  public searchValue = '';
+  public visible = false;
   pagesCountVisible = false;
   authors: Filter[] = [];
   languages: Filter[] = [];
@@ -43,7 +43,7 @@ export class BooksListComponent implements OnInit {
     const books: Book[] = await this.booksService.getBooksList();
     this.listOfDisplayBooks = books;
     this.listOfBooks = books;
-    this.setColumnFilters(books);
+    this.setColumnFilters();
   }
 
   async getAuthors() {
@@ -74,10 +74,10 @@ export class BooksListComponent implements OnInit {
     ];
   }
 
-  setColumnFilters(books: Book[]) {
-    const uniqueLanguages: Set<string> = new Set(books.map((book) => book.language));
+  setColumnFilters() {
+    const uniqueLanguages: Set<string> = new Set(this.listOfBooks.map((book) => book.language));
     this.languages = Array.from(uniqueLanguages).map((lang) => ({text: lang, value: lang}));
-    const uniqueGenre: Set<string> = new Set(books.map((book) => book.genre.toLowerCase()));
+    const uniqueGenre: Set<string> = new Set(this.listOfBooks.map((book) => book.genre.toLowerCase()));
     this.genres = Array.from(uniqueGenre).map((genre) => ({text: genre, value: genre}));
   }
 
