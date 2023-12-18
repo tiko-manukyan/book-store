@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database } from "../../init-db";
+import { Database } from "../../database";
 import { Author } from "../shared/model/models";
 import { NotificationService } from "./notification.service";
 import { Location } from '@angular/common'

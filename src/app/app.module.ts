@@ -28,7 +28,7 @@ import { ModalComponent } from "./shared/components/modal/modal.component";
 import { NzModalModule } from "ng-zorro-antd/modal";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { AuthorsService } from "./services/authors.service";
-import { Database } from "../init-db";
+import { Database } from "../database";
 import { BooksService } from "./services/books.service";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 import { NzResultModule } from "ng-zorro-antd/result";

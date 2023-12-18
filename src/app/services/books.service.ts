@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Book } from "../shared/model/models";
-import { Database } from "../../init-db";
+import { Database } from "../../database";
 import { NotificationService } from "./notification.service";
 import { Location } from "@angular/common";
 
