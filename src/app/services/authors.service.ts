@@ -13,11 +13,11 @@ export class AuthorsService {
     private _location: Location
   ) {}
 
-  async getAuthorList(): Promise<Author[]> {
+  public async getAuthorList(): Promise<Author[]> {
     return await  this.dataBase.getTable('authors');
   }
 
-  addNewAuthor(author: Author) {
+  public addNewAuthor(author: Author): void {
     this.dataBase.add('authors', author)
       .finally(() => {
         this.notification.success('Success', `Author with name ${author.name} added`);
@@ -28,8 +28,8 @@ export class AuthorsService {
       );
   }
 
-  async editAuthor(author: Author[], name: string) {
-    await this.dataBase.set('authors', author)
+  public async editAuthor(authors: Author[], name: string): Promise<void> {
+    await this.dataBase.set('authors', authors)
       .finally(() =>
         this.notification.success('Name changed',`Now author name is ${name}`))
       .catch(() =>
@@ -37,7 +37,7 @@ export class AuthorsService {
       );
   }
 
-  async deleteAuthor(authors: Author[]) {
+  public async deleteAuthor(authors: Author[]): Promise<void> {
     await this.dataBase.set('authors', authors)
       .finally(() =>
         this.notification.success('Success', 'Author was successfully deleted'))

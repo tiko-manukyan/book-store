@@ -5,7 +5,7 @@
   <thead>
   <tr>
     <th
-      *ngFor="let column of listOfColumns; trackBy: trackByName"
+      *ngFor="let column of listOfColumns;"
       [nzFilters]="column.listOfFilter"
       [nzFilterFn]="column.filterFn"
       [nzFilterMultiple]="column.filterMultiple"

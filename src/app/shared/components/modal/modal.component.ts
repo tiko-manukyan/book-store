@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
-import {Author} from "../../model/models";
+import { Author } from "../../model/models";
 
 @Component({
   selector: 'app-modal',
@@ -11,25 +11,25 @@ export class ModalComponent {
 
   @Input() isVisible = false;
   @Output() submitted: EventEmitter<Author> = new EventEmitter();
-  author: FormGroup = new FormGroup({
+  public author: FormGroup = new FormGroup({
     name: this.fb.control(''),
     id: this.fb.control(''),
-  })
+  });
 
-  show(author: any): void {
+  constructor(private fb: FormBuilder) {}
+
+  public show(author: Author): void {
     this.author.patchValue(author);
     this.isVisible = true;
   }
 
-  handleOk(): void {
+  public handleOk(): void {
     this.isVisible = false;
     this.submitted.emit(this.author.value);
   }
 
-  handleCancel(): void {
+  public handleCancel(): void {
     this.isVisible = false;
   }
-
-  constructor(private fb: FormBuilder) {}
 
 }

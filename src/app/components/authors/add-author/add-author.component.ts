@@ -5,7 +5,6 @@ import { Author } from "../../../shared/model/models";
 import { AuthorsService } from "../../../services/authors.service";
 import { NotificationService } from "../../../services/notification.service";
 
-
 @Component({
   selector: 'app-add-author',
   templateUrl: './add-author.component.html',
@@ -19,15 +18,15 @@ export class AddAuthorComponent {
     private notification: NotificationService
   ) {}
 
-  onAddAuthor() {
+  public onAddAuthor(): void {
     if (!this.authorName.value) {
       this.notification.warning('Warning', 'Please type author name')
     } else {
       const newAuthor: Author = {
         name: this.authorName.value,
         id: v4()
-      }
-      this.authorService.addNewAuthor(newAuthor)
+      };
+      this.authorService.addNewAuthor(newAuthor);
       this.authorName.reset();
     }
   }

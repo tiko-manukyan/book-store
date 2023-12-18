@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthorsService } from "../../../services/authors.service";
 import { BooksService } from "../../../services/books.service";
 import { v4 } from 'uuid'
+import { FilterList } from "../../../shared/model/models";
 
 
 @Component({
@@ -12,7 +13,7 @@ import { v4 } from 'uuid'
 })
 export class CreateBookComponent implements OnInit {
 
-  bookForm: FormGroup = this.fb.group({
+  public bookForm: FormGroup = this.fb.group({
     name: this.fb.control('', Validators.required),
     author: this.fb.control('', Validators.required),
     description: this.fb.control(''),
@@ -22,9 +23,8 @@ export class CreateBookComponent implements OnInit {
     id: this.fb.control('')
   });
 
-  authors: { value: string, text: string }[] = [];
-
-  languages = [
+  public authors: FilterList[] = [];
+  public languages: FilterList[] = [
     { text: 'English', value: 'English' },
     { text: 'Russian', value: 'Russian' },
     { text: 'Chinese', value: 'Chinese' }
@@ -41,7 +41,7 @@ export class CreateBookComponent implements OnInit {
         this.authors.push(...authors.map((author) => { return {value: author.id, text: author.name} })))
   }
 
-  submitForm(): void {
+  public submitForm(): void {
     if (!this.bookForm.valid) {
       Object.values(this.bookForm.controls).forEach(control => {
         if (control.invalid) {

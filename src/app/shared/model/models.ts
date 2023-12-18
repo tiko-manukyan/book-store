@@ -1,13 +1,18 @@
 import { NzTableFilterFn, NzTableFilterList } from "ng-zorro-antd/table";
 
 export interface Book {
+  id: string,
   author: string,
   name: string,
   pages: number,
   language: string,
   genre: string,
-  id: string,
   description? : string
+}
+
+export interface Author {
+  id: string
+  name: string,
 }
 
 export interface TableColumn {
@@ -17,12 +22,8 @@ export interface TableColumn {
   filterMultiple: boolean
 }
 
-export interface Author {
-  name: string,
-  id: string
-}
 
-export interface Filter {
+export interface FilterList {
   text: string,
   value: string
 }

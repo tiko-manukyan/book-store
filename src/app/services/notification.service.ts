@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {NzNotificationService} from "ng-zorro-antd/notification";
+import { Injectable } from "@angular/core";
+import { NzNotificationService } from "ng-zorro-antd/notification";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class NotificationService {
 
   constructor(private notification: NzNotificationService) { }
 
-  success(title: string, content: string) {
+  public success(title: string, content: string): void {
     this.notification.success(
       title,
       content,
@@ -16,7 +16,7 @@ export class NotificationService {
     );
   }
 
-  warning(title: string, content: string) {
+  public warning(title: string, content: string): void {
     this.notification.warning(
       title,
       content,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Author, Book, Filter, TableColumn } from "../../../shared/model/models";
+import { Author, Book, FilterList, TableColumn } from "../../../shared/model/models";
 import { AuthorsService } from "../../../services/authors.service";
 import { BooksService } from "../../../services/books.service";
 
@@ -18,10 +18,10 @@ export class BooksListComponent implements OnInit {
   public pagesCounter = [20, 100];
   public searchValue = '';
   public visible = false;
-  pagesCountVisible = false;
-  authors: Filter[] = [];
-  languages: Filter[] = [];
-  genres: Filter[] = [];
+  public pagesCountVisible = false;
+  public languages: FilterList[] = [];
+  public genres: FilterList[] = [];
+  private authors: FilterList[] = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -33,25 +33,25 @@ export class BooksListComponent implements OnInit {
     this.getTableData();
   }
 
-  async getTableData(): Promise<void> {
+  private async getTableData(): Promise<void> {
     await this.getAuthors();
     await this.getBooksList();
     this.setColumns();
   }
 
-  async getBooksList(): Promise<void> {
+  public async getBooksList(): Promise<void> {
     const books: Book[] = await this.booksService.getBooksList();
     this.listOfDisplayBooks = books;
     this.listOfBooks = books;
     this.setColumnFilters();
   }
 
-  async getAuthors() {
+  public async getAuthors(): Promise<void> {
     const authors: Author[] = await this.authorService.getAuthorList();
     this.authors = authors.map((author) => ({value: author.name, text: author.name}));
   }
 
-  setColumns() {
+  private setColumns(): void {
     this.listOfColumns = [
       {
         name: 'Author',
@@ -74,7 +74,7 @@ export class BooksListComponent implements OnInit {
     ];
   }
 
-  setColumnFilters() {
+  private setColumnFilters(): void {
     const uniqueLanguages: Set<string> = new Set(this.listOfBooks.map((book) => book.language));
     this.languages = Array.from(uniqueLanguages).map((lang) => ({text: lang, value: lang}));
     const uniqueGenre: Set<string> = new Set(this.listOfBooks.map((book) => book.genre.toLowerCase()));
@@ -82,38 +82,34 @@ export class BooksListComponent implements OnInit {
   }
 
 
-  reset(): any {
+  public reset(): void {
     this.searchValue = '';
     this.search();
   }
 
-  search(): void {
+  public search(): void {
     this.visible = false;
     this.listOfDisplayBooks = this.listOfBooks.filter(
       (item: Book) => item.name.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1 || item.description!.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1);
   }
 
-  trackByName(_: number, item: TableColumn): string {
-    return item.name;
-  }
-
-  searchByPages() {
+  public searchByPages(): void {
     this.pagesCountVisible = false;
     this.listOfDisplayBooks = this.listOfBooks
       .filter((item) => item.pages >= this.pagesCounter[0] && item.pages <= this.pagesCounter[1]);
   }
 
-  resetPages() {
+  public resetPages(): void {
     this.pagesCountVisible = false;
     this.listOfDisplayBooks = this.listOfBooks;
   }
 
-  onNavigate(book: Book) {
-    this.router.navigate([book.id], {relativeTo: this.route})
+  public onNavigate(book: Book): void {
+    this.router.navigate([book.id], {relativeTo: this.route});
   }
 
-  onCreateBook() {
-    this.router.navigate(['create'], {relativeTo: this.route})
+  public onCreateBook(): void {
+    this.router.navigate(['create'], {relativeTo: this.route});
   }
 
 }

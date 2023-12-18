@@ -10,7 +10,7 @@ import { Book } from "../../../shared/model/models";
 })
 export class BookItemComponent implements OnInit {
 
-  listOfColumns = [
+  public listOfColumns = [
     { name: 'Author' },
     { name: 'Language' },
     { name: 'Pages' },
@@ -18,7 +18,7 @@ export class BookItemComponent implements OnInit {
     { name: 'Name' },
     { name: 'Description' },
   ];
-  book!: Book;
+  public book!: Book;
 
   constructor(private route: ActivatedRoute,
               private bookService: BooksService

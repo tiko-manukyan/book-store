@@ -1,8 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Author } from "../../../shared/model/models";
 import { AuthorsService } from "../../../services/authors.service";
-
-
 
 @Component({
   selector: 'app-authors-list',
@@ -10,32 +8,30 @@ import { AuthorsService } from "../../../services/authors.service";
   styleUrl: './authors-list.component.scss'
 })
 export class AuthorsListComponent implements OnInit {
-  editMode = false;
-  listOfAuthors: Author[] = [];
+  public editMode = false;
+  public listOfAuthors: Author[] = [];
 
-  constructor(
-    private authorService: AuthorsService
-  ) {}
+  constructor(private authorService: AuthorsService) {}
 
   ngOnInit() {
     this.getAuthorList();
   }
 
-  getAuthorList() {
-    this.authorService.getAuthorList().then((list) => {
-      this.listOfAuthors = list
-    })
+  private getAuthorList(): void {
+    this.authorService.getAuthorList()
+      .then((list) => this.listOfAuthors = list);
   }
 
-  onDeleteAuthor(id: string) {
+  public onDeleteAuthor(id: string): void {
     const editedArr = this.listOfAuthors.filter((author) => author.id !== id);
     this.authorService.deleteAuthor(editedArr)
       .then(() => this.getAuthorList());
   }
 
-  onEditAuthor(author: Author) {
-    this.listOfAuthors.find((item: Author) => item.id === author.id)!.name = author.name
-    this.authorService.editAuthor(this.listOfAuthors, author.name)
+  public onEditAuthor(author: Author): void {
+    const updateList = this.listOfAuthors
+      .map((item) => author.id === item.id ? { name: author.name, id: author.id} : item);
+    this.authorService.editAuthor(updateList, author.name)
       .then(() => this.getAuthorList());
   }
 }
